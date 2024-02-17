@@ -2,12 +2,14 @@ package com.example.cryptocoinapp.pojo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.cryptocoinapp.api.ApiFactory.BASE_IMAGE_URL
+import com.example.cryptocoinapp.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
 
 @Entity("full_price_list")
-data class CoinPriceInfo (
+data class CoinPriceInfo(
     @SerializedName("TYPE")
     @Expose
     val type: String? = null,
@@ -15,14 +17,15 @@ data class CoinPriceInfo (
     @SerializedName("MARKET")
     @Expose
     val market: String? = null,
+
     @PrimaryKey
     @SerializedName("FROMSYMBOL")
     @Expose
-    val fromSymbol: String? = null,
+    val fromSymbol: String,
 
     @SerializedName("TOSYMBOL")
     @Expose
-    val tosymbol: String? = null,
+    val toSymbol: String? = null,
 
     @SerializedName("FLAGS")
     @Expose
@@ -30,11 +33,11 @@ data class CoinPriceInfo (
 
     @SerializedName("PRICE")
     @Expose
-    val price: Double? = null,
+    val price: String? = null,
 
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastUpdate: Int? = null,
+    val lastUpdate: Long? = null,
 
     @SerializedName("MEDIAN")
     @Expose
@@ -42,23 +45,23 @@ data class CoinPriceInfo (
 
     @SerializedName("LASTVOLUME")
     @Expose
-    val lastvolume: Double? = null,
+    val lastVolume: Double? = null,
 
     @SerializedName("LASTVOLUMETO")
     @Expose
-    val lastvolumeto: Double? = null,
+    val lastVolumeto: Double? = null,
 
     @SerializedName("LASTTRADEID")
     @Expose
-    val lasttradeid: String? = null,
+    val lastTradeId: String? = null,
 
     @SerializedName("VOLUMEDAY")
     @Expose
-    val volumeday: Double? = null,
+    val volumeDay: Double? = null,
 
     @SerializedName("VOLUMEDAYTO")
     @Expose
-    val volumedayto: Double? = null,
+    val volumeDayTo: Double? = null,
 
     @SerializedName("VOLUME24HOUR")
     @Expose
@@ -66,23 +69,19 @@ data class CoinPriceInfo (
 
     @SerializedName("VOLUME24HOURTO")
     @Expose
-    val volume24hourto: Double? = null,
+    val volume24hourTo: Double? = null,
 
     @SerializedName("OPENDAY")
     @Expose
-    val openday: Double? = null,
+    val openDay: Double? = null,
 
     @SerializedName("HIGHDAY")
     @Expose
-    val highday: Double? = null,
+    val highDay: Double? = null,
 
     @SerializedName("LOWDAY")
     @Expose
-    val lowday: Double? = null,
-
-    @SerializedName("OPEN24HOUR")
-    @Expose
-    val open24hour: Double? = null,
+    val lowDay: Double? = null,
 
     @SerializedName("HIGH24HOUR")
     @Expose
@@ -95,26 +94,6 @@ data class CoinPriceInfo (
     @SerializedName("LASTMARKET")
     @Expose
     val lastmarket: String? = null,
-
-    @SerializedName("VOLUMEHOUR")
-    @Expose
-    val volumehour: Double? = null,
-
-    @SerializedName("VOLUMEHOURTO")
-    @Expose
-    val volumehourto: Double? = null,
-
-    @SerializedName("OPENHOUR")
-    @Expose
-    val openhour: Double? = null,
-
-    @SerializedName("HIGHHOUR")
-    @Expose
-    val highhour: Double? = null,
-
-    @SerializedName("LOWHOUR")
-    @Expose
-    val lowhour: Double? = null,
 
     @SerializedName("TOPTIERVOLUME24HOUR")
     @Expose
@@ -199,4 +178,12 @@ data class CoinPriceInfo (
     @SerializedName("IMAGEURL")
     @Expose
     val imageurl: String? = null
-)
+) {
+    fun getFormattedTime(): String {
+        return convertTimestampToTime(lastUpdate)
+    }
+
+    fun getFullImageUrl(): String {
+        return BASE_IMAGE_URL + imageurl
+    }
+}

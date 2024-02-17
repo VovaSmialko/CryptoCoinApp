@@ -9,12 +9,12 @@ import com.example.cryptocoinapp.pojo.CoinPriceInfo
 
 @Dao
 interface CoinPriceInfoDao {
-    @Query("SELECT * FROM full_price_list ORDER BY lastUpdate")
+    @Query("SELECT * FROM full_price_list ORDER BY lastUpdate DESC")
     fun getPriceList(): LiveData<List<CoinPriceInfo>>
     // Метод щоб виводити список валют в RecyclerView
 
     @Query("SELECT * FROM full_price_list WHERE fromSymbol == :fSym LIMIT 1")
-    fun getPriceInfoAboutCoin(fSym: String): LiveData<List<CoinPriceInfo>>
+    fun getPriceInfoAboutCoin(fSym: String): LiveData<CoinPriceInfo>
     // Буде повертати інформацію про 1 валюту, щоб ми могли вивести всю детальну інфу на окремому екрані
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
